@@ -31,7 +31,7 @@ cd deployer
 Install system dependencies:
 
 ```shell
-sudo chmod 700 script/bootstrap
+sudo chmod 700 script/*
 script/bootstrap
 ```
 
@@ -39,23 +39,16 @@ Setup Nginx Vhosts:
 
 ```shell
 export SITE="chauke.org" # Change me
-sed -i "s/example.com;/$SITE;/g" conf.d/example.com.conf
-sed -i "s/example.com/$SITE/g" conf.d/example.com.conf
-sed -i "s/example.com/$SITE/g" docker-compose.yml
-mv conf.d/example.com.conf conf.d/"$SITE.conf" 
+script/setup
 ```
 
 Edit environment variables:
 
 ```shell
-sudo touch /etc/default/redis
-sudo touch /etc/default/nginx
-sudo touch /etc/default/chroma
+sudo vi /etc/default/redis
+sudo vi /etc/default/nginx
+sudo vi /etc/default/chroma
 sudo vi /etc/default/postgres
-    # POSTGRES_USER=postgres
-    # POSTGRES_PASSWORD=secure-pass-word
-    # POSTGRES_DB=postgres
-
 ```
 
 Run docker services:

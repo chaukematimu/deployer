@@ -1,0 +1,14 @@
+#!/bin/bash
+
+cd "$(dirname "$0")/.." || exit
+
+sed -i "s/example.com;/$SITE;/g" conf.d/example.com.conf
+sed -i "s/example.com/$SITE/g" conf.d/example.com.conf
+sed -i "s/example.com/$SITE/g" docker-compose.yml
+
+mv conf.d/example.com.conf conf.d/"$SITE.conf"
+
+sudo touch /etc/default/redis
+sudo touch /etc/default/nginx
+sudo touch /etc/default/chroma
+sudo touch /etc/default/postgres
