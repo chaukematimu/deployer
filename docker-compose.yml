@@ -1,0 +1,51 @@
+services:
+  nginx:
+    container_name: nginx
+    network_mode: "host"
+    build:
+      context: .
+    volumes:
+      - ./entrypoint-init.d:/docker-entrypoint-init.d
+      - ./conf.d:/etc/nginx/conf.d
+      - /etc/letsencrypt/live/example.com/fullchain.pem:/etc/nginx/certs/default.crt
+      - /etc/letsencrypt/live/example.com/privkey.pem:/etc/nginx/certs/default.key
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
+    env_file:
+      - /etc/default/nginx
+
+  redis:
+    container_name: redis
+    image: "redis:alpine"
+    network_mode: "host"
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    env_file:
+      - /etc/default/redis
+
+  postgres:
+    container_name: postgres
+    image: "postgres:alpine"
+    network_mode: "host"
+    ports:
+      - "5432:5432"
+    volumes:
+      - /var/lib/postgresql/data:/var/lib/postgresql/data
+    restart: unless-stopped
+    env_file:
+      - /etc/default/postgres
+
+  chroma:
+    container_name: chroma
+    image: ghcr.io/chroma-core/chroma:latest
+    volumes:
+      - /var/lib/chroma/data:/chroma/chroma
+    ports:
+      - 8000:8000
+    network_mode: "host"
+    restart: unless-stopped
+    env_file:
+      - /etc/default/chroma
