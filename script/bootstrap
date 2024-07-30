@@ -30,19 +30,8 @@ setup_docker_apt_repo(){
     sudo apt-get update
 }
 
-setup_pyenv(){
-  sudo apt-get update
-  sudo apt-get install build-essential libssl-dev curl git -y
-  curl https://pyenv.run | bash
-}
 
 if ! docker --version
 then
   setup_docker_engine
 fi
-
-if [ ! -d "$HOME/.pyenv" ]; then
-  setup_pyenv
-fi
-
-sudo apt-get install supervisor  -y

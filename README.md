@@ -5,9 +5,6 @@ This projects aims at making production deployments less of a pain.
 Following dependencies will be installed:
 
 - [Docker](https://docs.docker.com/engine/install/)
-- [pyenv](https://github.com/pyenv/pyenv)
-- [nvm](https://github.com/nvm-sh/nvm)
-- [supervisor](https://github.com/Supervisor/supervisor)
 
 ## Getting Started
 
